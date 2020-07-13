@@ -1,0 +1,68 @@
+version: '3'
+services:
+  bot:
+    build:
+      context: ./bot
+    container_name: 'bot'
+    links:
+      - mysql:mysql
+      - redis:redis
+    restart: always
+    env_file:
+      - ".env"
+    environment:
+      - TELEGRAM_API=${TELEGRAM_API}
+      - DEBUG=${DEBUG}
+      - DB=${MYSQL_DATABASE}
+      - DB_HOST=${MYSQL_HOST}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_LOCATION="Local"
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT="6379"
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - RANDOM_INT=${RANDOM_HASH_INT}
+      - HASH_TABLE=${RANDOM_HASH_SRT}
+    depends_on:
+      - mysql
+      - redis
+
+  redis:
+    image: bitnami/redis:${REDIS_VERSION}
+    container_name: ${REDIS_HOST}
+    env_file:
+      - ".env"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+  myadmin:
+    image: phpmyadmin/phpmyadmin:4.7.6-1
+    container_name: madmin
+    links:
+      - mysql:mysql
+    ports:
+      - "8080:80"
+    env_file:
+      - ".env"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=${MYSQL_HOST}
+    restart: always
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${MYSQL_HOST}
+    restart: always
+    command: mysqld --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    env_file:
+      - ".env"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - TZ=Asia/Tehran
+    volumes:
+      - "./mysql:/var/lib/mysql"
