@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -28,7 +29,7 @@ func LoadDB() {
 	var err error
 	Db, err = gorm.Open("mysql", connectionString)
 	if err != nil {
-		panic(fmt.Sprintf("Database Connection Error %v", err))
+		log.Fatalf("database connection error %v", err)
 	}
 	Db.DB().SetMaxIdleConns(20)
 	Db.DB().SetMaxOpenConns(100)
@@ -42,7 +43,7 @@ func LoadDB() {
 	})
 	_, err = Redis.Ping().Result()
 	if err != nil {
-		panic(fmt.Sprintf("Redis Connection Error %v", err))
+		log.Fatalf("redis connection error %v", err)
 	}
 }
 
