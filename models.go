@@ -19,20 +19,20 @@ type Command struct {
 //User User
 type User struct {
 	ID           int64     `gorm:"primary_key" json:"id"`
-	Link         string    `json:"link"`
-	FirstName    string    `json:"first_name"`
-	LastName     string    `json:"last_name"`     // optional
-	UserName     string    `json:"username"`      // optional
-	LanguageCode string    `json:"language_code"` // optional
-	BlockedBot   bool      `json:"blocked_bot"`   // optional
-	IsBot        bool      `json:"is_bot"`        // optional
+	Link         string    `gorm:"size:32" json:"link"`
+	FirstName    string    `gorm:"size:255" json:"first_name"`
+	LastName     string    `gorm:"size:255" json:"last_name"`     // optional
+	UserName     string    `gorm:"size:255" json:"username"`      // optional
+	LanguageCode string    `gorm:"size:255" json:"language_code"` // optional
+	BlockedBot   bool      `json:"blocked_bot"`                   // optional
+	IsBot        bool      `json:"is_bot"`                        // optional
 	CreatedAt    time.Time `json:"created_at"`
 }
 
 //Suspend Suspend
 type Suspend struct {
-	OwnerID     int64 `json:"owner_id"`
-	BlockedUser int64 `json:"blocked_user"`
+	OwnerID     int64 `gorm:"primary_key" json:"owner_id"`
+	BlockedUser int64 `gorm:"primary_key" json:"blocked_user"`
 }
 
 //Message Message
@@ -54,7 +54,7 @@ type Message struct {
 }
 
 //Migrate Simple migrate withoiut extrnal tools
-func Migrate() {
+func migrate() {
 	Db.AutoMigrate(&User{}, &Message{}, &Suspend{})
 }
 

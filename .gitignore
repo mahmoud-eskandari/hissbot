@@ -3,4 +3,5 @@ config.ini
 .idea
 .vscode
 .DS_Store
-bot
+./bot
+vendor

@@ -14,18 +14,17 @@ func main() {
 	// Save last command state in this map
 	UserCommandState = make(map[int]Command)
 	// initialize config
-	LoadConfig()
-	LoadDB()
+	initConnections()
 	defer CloseDB()
 	// Migrate()
 	// Start Bot
 	err := errors.New("")
-	Bot, err = tgbotapi.NewBotAPI(Str("bot", "api", ""))
+	Bot, err = tgbotapi.NewBotAPI(Str("TELEGRAM_API", ""))
 	if err != nil {
 		log.Panic(err)
 	}
 	// Start Debug
-	Bot.Debug = Bool("bot", "debug", false)
+	Bot.Debug = Bool("DEBUG", false)
 	if Bot.Debug {
 		log.Printf("Authorized on account %s", Bot.Self.UserName)
 	}
