@@ -1,12 +1,15 @@
 # hissbot (ربات ناشناس تلگرام)
 A simple golang project, just for fun
 
-## build
+## Build
 `go build -o ./docker/bot/hissbot`
 
-## run
+## Run
 ```
 cd docker
 docker-compose build bot
 docker-compose up -d
 ```
+
+## Configuration
+open `./docker/.env` file and set your config on it
