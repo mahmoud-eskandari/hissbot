@@ -2,8 +2,12 @@
 A simple golang project, just for fun
 
 ## Build
+Mac:
+`GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./docker/bot/hissbot`
+Linux:
 `go build -o ./docker/bot/hissbot`
-
+Windows:
+`SET GOOS=linux && SET GOARCH=amd64 && SET CGO_ENABLED=0 && go build -o ./docker/bot/hissbot`
 ## Run
 ```
 cd docker
