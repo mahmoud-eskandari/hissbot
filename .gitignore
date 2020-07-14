@@ -5,3 +5,4 @@ config.ini
 .DS_Store
 ./bot
 vendor
+/docker/mysql/

@@ -14,10 +14,10 @@ services:
       - TELEGRAM_API=${TELEGRAM_API}
       - DEBUG=${DEBUG}
       - DB=${MYSQL_DATABASE}
-      - DB_HOST=${MYSQL_HOST}
+      - DB_HOST=tcp(${MYSQL_HOST}:3306)
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
-      - DB_LOCATION="Local"
+      - DB_LOCATION=Local
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT="6379"
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -37,11 +37,11 @@ services:
 
   myadmin:
     image: phpmyadmin/phpmyadmin:4.7.6-1
-    container_name: madmin
+    container_name: mybotadmin
     links:
       - mysql:mysql
     ports:
-      - "8080:80"
+      - "8099:80"
     env_file:
       - ".env"
     environment:
