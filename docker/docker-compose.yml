@@ -33,6 +33,7 @@ services:
     env_file:
       - ".env"
     environment:
+#       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_PASSWORD=${REDIS_PASSWORD}
 
   myadmin:

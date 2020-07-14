@@ -31,8 +31,9 @@ type User struct {
 
 //Suspend Suspend
 type Suspend struct {
-	OwnerID     int64 `gorm:"primary_key" json:"owner_id"`
-	BlockedUser int64 `gorm:"primary_key" json:"blocked_user"`
+	ID          uint
+	OwnerID     int64 `gorm:"primary_key;auto_increment:false" json:"owner_id"`
+	BlockedUser int64 `gorm:"primary_key;auto_increment:false" json:"blocked_user"`
 }
 
 //Message Message
