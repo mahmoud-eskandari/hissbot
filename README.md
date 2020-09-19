@@ -130,3 +130,6 @@ RANDOM_HASH_INT=1342
 RANDOM_HASH_SRT=abcdefghij
 
 ```
+
+## How to create a Telegram bot?
+Send a message to [BotFather](https://t.me/BotFather) to create a bot then put API KEY to the `.env` file
